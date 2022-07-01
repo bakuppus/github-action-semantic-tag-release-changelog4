@@ -12,6 +12,6 @@ jobs:
       - name: Slack Notify About Conflicts
         uses: brainly/action-slack-notificator
         with:
-          webhookUrl: ${{ secrets.SLACK_WEBHOOK }}
+          webhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
           messageContent: 'Your custom message!'
 
