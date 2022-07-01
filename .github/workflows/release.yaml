@@ -9,17 +9,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: slack-notification-for-failure
-        uses: codigube/github-actions-notify-slack@v3.0.0
-        if: failure() || cancelled()
-        env:
-          SLACK_COLOR: '#DF5A49'
-          SLACK_MESSAGE: 'Job ${{ github.job }} failed'
 
-      - name: slack-notification-for-success
-        uses: codigube/github-actions-notify-slack@v3.0.0
-        if: success()
+      - name: slack-notification
+        uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_MESSAGE: 'Job ${{ github.job }} succeeded'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
