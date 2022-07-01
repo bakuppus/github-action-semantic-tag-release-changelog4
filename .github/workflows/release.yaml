@@ -13,32 +13,12 @@ jobs:
         uses: actions/checkout@v2
 
 
-      - name: Notify slack success
-        if: success()
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: "cicd"
-          message_id: ${{ steps.slack.outputs.message_id }}
-          status: SUCCESS
-          color: good
-
-      - name: Notify slack fail
-        if: failure()
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: "cicd"
-          message_id: ${{ steps.slack.outputs.message_id }}
-          status: FAILED
-          color: danger
 
       - name: Slack Notification
         uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
+          config: .github/slack.yml
           channel: '#cicd'
           message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
         if: always()
