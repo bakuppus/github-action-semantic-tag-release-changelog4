@@ -22,4 +22,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
-        if: always()
