@@ -29,4 +29,5 @@ jobs:
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
         env:
           SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
+          GITHUB_TOKEN: {{ secrets.GITHUB_TOKEN }}
 
