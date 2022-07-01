@@ -11,8 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: slack-notification
-        uses: premisedata/slack-build-notifications@v1.0
-        if: always()
+        uses: skarlso/slack-notification-action
         env:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
 
