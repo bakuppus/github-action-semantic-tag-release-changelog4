@@ -12,6 +12,6 @@ jobs:
 
       - name: slack-notification
         uses: skarlso/slack-notification-action
-        env:
+        with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
