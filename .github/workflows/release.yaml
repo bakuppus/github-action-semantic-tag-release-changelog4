@@ -11,13 +11,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run deployment process
-        run: exit 0
 
-      - name: Notify deployment
-        uses: 8398a7/action-slack@v3.8.0
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
         with:
-          status: ${{ job.status }}
+      # For posting a rich message using Block Kit
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
