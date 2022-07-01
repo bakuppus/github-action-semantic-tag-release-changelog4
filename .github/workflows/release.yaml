@@ -10,10 +10,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: slack-notification
-        uses: edge/simple-slack-notify@master
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          channel: '#jenkinsbuild'
 
+      - name: Notify slack success
+        if: success()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: "cicd"
+          message_id: ${{ steps.slack.outputs.message_id }}
+          status: SUCCESS
+          color: good
+
+      - name: Notify slack fail
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: "cicd"
+          message_id: ${{ steps.slack.outputs.message_id }}
+          status: FAILED
+          color: danger
