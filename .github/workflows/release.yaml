@@ -9,9 +9,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Slack Notify About Conflicts
-        uses: brainly/action-slack-notificator
-        with:
-          webhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
-          messageContent: 'Your custom message!'
+      - name: slack-notification-for-failure
+        uses: codigube/github-actions-notify-slack@v3.0.0
+        if: failure() || cancelled()
+        env:
+          SLACK_COLOR: '#DF5A49'
+          SLACK_MESSAGE: 'Job ${{ github.job }} failed'
+
+      - name: slack-notification-for-success
+          uses: codigube/github-actions-notify-slack@v3.0.0
+        if: success()
+        env:
+          SLACK_MESSAGE: 'Job ${{ github.job }} succeeded'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
