@@ -15,15 +15,14 @@ jobs:
   slack:
 
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
 
       - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
