@@ -12,7 +12,7 @@ jobs:
 
       - name: slack-notification
         uses: premisedata/slack-build-notifications@v1.0
-        if: always(
+        if: always()
         env:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
 
