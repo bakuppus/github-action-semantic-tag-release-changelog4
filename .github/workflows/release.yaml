@@ -4,18 +4,14 @@ on:
     branches:
       - main
 jobs:
-  deploy:
+  update-branches:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
-
-
-
-      - name: Send custom JSON data to Slack workflow
-        id: slack
-        uses: slackapi/slack-github-action@v1.19.0
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Slack Notify About Conflicts
+        uses: brainly/action-slack-notificator
+        with:
+          webhookUrl: ${{ secrets.SLACK_WEBHOOK }}
+          messageContent: 'Your custom message!'
 
