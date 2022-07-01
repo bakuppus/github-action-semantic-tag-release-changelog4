@@ -20,5 +20,12 @@ jobs:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
           channel: '#cicd'
-          message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
+          message: |
+            *<{{refUrl}}|PR _{{description}}({{ref}})_ requires code review>*
+            {{#if payload.pull_request.requested_reviewers }}
+            *Please, the following users check the code and accept/reject accordingly:*
+            {{#each payload.pull_request.requested_reviewers}}
+            :white_check_mark: <{{this.url}}|`{{this.login}}`>
+            {{/each}}
+            {{/if}}
         if: always()
