@@ -6,6 +6,8 @@ on:
 jobs:
   slack:
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,3 +34,11 @@ jobs:
           message_id: ${{ steps.slack.outputs.message_id }}
           status: FAILED
           color: danger
+
+      - name: Slack Notification
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#cicd'
+          message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
+        if: always()
