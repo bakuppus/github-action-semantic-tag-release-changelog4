@@ -4,16 +4,14 @@ on:
     branches:
       - main
 jobs:
-  update-branches:
+  slack:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: slack-notification
-        uses: skarlso/slack-notification-action
-        with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          message: "Running the release process... Current status is: :running:"
-          channel: "D03LE6V1CVB"
+        uses: edge/simple-slack-notify@master
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
