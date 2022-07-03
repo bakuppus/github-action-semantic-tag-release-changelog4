@@ -17,19 +17,7 @@ text: |
 fallback: |-
   [GitHub] {{workflow}} #{{runNumber}} {{jobName}} is {{jobStatus}}
 
-# text
-  - type: section
-    text:
-      type: mrkdwn
-      text: *text
-    accessory:
-      type: button
-      text:
-        type: plain_text
-        text: View
-      value: workflow_run_{{runId}}
-      url: '{{workflowRunUrl}}'
-      action_id: button-action
+
 
 fields:
   - title: Job Steps
@@ -57,6 +45,21 @@ fields:
   - title: Job Status
     value: "{{jobStatus}}"
     short: true
+
+  # text
+  - type: section
+    text:
+      type: mrkdwn
+      text: *text
+    accessory:
+      type: button
+      text:
+        type: plain_text
+        text: View
+      value: workflow_run_{{runId}}
+      url: '{{workflowRunUrl}}'
+      action_id: button-action
+
 
 footer: >-
   <{{repositoryUrl}}|{{repositoryName}}> {{workflow}} #{{runNumber}}
