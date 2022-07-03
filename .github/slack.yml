@@ -17,16 +17,44 @@ text: |
 fallback: |-
   [GitHub] {{workflow}} #{{runNumber}} {{jobName}} is {{jobStatus}}
 
+blocks:
+  # author
+  - type: context
+    elements:
+      - type: image
+        image_url: '{{{sender.avatar_url}}}'
+        alt_text: '{{sender.login}}'
+      - type: mrkdwn
+        text: "*<{{sender.html_url}}|{{sender.login}}>*"
+
+  # title
+  - type: section
+    text:
+      type: mrkdwn
+      text: |
+        *<{{title_link}}|{{title}}>*
+  # text
+  - type: section
+    text:
+      type: mrkdwn
+      text: *text
+    accessory:
+      type: button
+      text:
+        type: plain_text
+        text: View
+      value: workflow_run_{{runId}}
+      url: '{{workflowRunUrl}}'
+      action_id: button-action
+
+
 fields:
   - title: Job Steps
     value: "{{#each jobSteps}}{{icon this.outcome}} {{@key}}\n{{/each}}"
     short: false
-
   - title: Repo Name
     value: <{{repositoryUrl}}|{{repositoryName}}>
     short: false
-
-
   - title: Workflow
     value: "<{{workflowUrl}}|{{workflow}}>"
     short: true
