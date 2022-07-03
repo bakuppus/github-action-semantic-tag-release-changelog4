@@ -4,14 +4,9 @@ icon_url: https://octodex.github.com/images/mona-the-rivetertocat.png
 pretext: Triggered via {{eventName}} by {{actor}} {{or action "action"}} {{ref}} `{{diffRef}}`
 
 text: |
-  *Build status  :  {{jobStatus}} *
+  *Build and Deploy Status  :  {{jobStatus}} *
 
-  {{#if payload.commits}}
-  *Commits*
-  {{#each payload.commits}}
-  <{{this.url}}|`{{truncate this.id 8}}`> - {{this.message}}
-  {{/each}}
-  {{/if}}
+
 
 fallback: |-
   [GitHub] {{workflow}} #{{runNumber}} {{jobName}} is {{jobStatus}}
@@ -23,6 +18,10 @@ fields:
 
   - title: Repo Name
     value: <{{repositoryUrl}}|{{repositoryName}}>
+    short: false
+
+  - title: Commits
+    value: <{{this.url}}|`{{truncate this.id 8}}`> - {{this.message}}
     short: false
 
   - title: Workflow
