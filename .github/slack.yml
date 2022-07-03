@@ -17,23 +17,7 @@ text: |
 fallback: |-
   [GitHub] {{workflow}} #{{runNumber}} {{jobName}} is {{jobStatus}}
 
-blocks:
-  # author
-  - type: context
-    elements:
-      - type: image
-        image_url: '{{{sender.avatar_url}}}'
-        alt_text: '{{sender.login}}'
-      - type: mrkdwn
-        text: "*<{{sender.html_url}}|{{sender.login}}>*"
-
-  # title
-  - type: section
-    text:
-      type: mrkdwn
-      text: |
-        *<{{title_link}}|{{title}}>*
-  # text
+# text
   - type: section
     text:
       type: mrkdwn
@@ -46,7 +30,6 @@ blocks:
       value: workflow_run_{{runId}}
       url: '{{workflowRunUrl}}'
       action_id: button-action
-
 
 fields:
   - title: Job Steps
